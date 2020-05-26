@@ -1,0 +1,13 @@
+import { Injectable } from '@nestjs/common'
+import { Logger } from '@bds/nestjs-common'
+
+import { SERVICE_NAME } from '../../config'
+
+@Injectable()
+export class <%= serviceClass %> {
+  logger: Logger
+
+  constructor() {
+    this.logger = new Logger(SERVICE_NAME, '<%= loggerContext %>')
+  }
+}

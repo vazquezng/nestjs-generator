@@ -1,0 +1,25 @@
+import { NestFactory } from '@nestjs/core'
+import { ValidationPipe } from '@nestjs/common'
+import { ExceptionsFilter, SwaggerHelper } from '@bds/nestjs-common'
+
+import { AppModule } from './app.module'
+import { SERVICE_NAME } from './config'
+
+declare const module
+
+async function bootstrap(): Promise<void> {
+  const app = await NestFactory.create(AppModule)
+
+  SwaggerHelper.setup(app, '<%= swaggerName %>')
+
+  app.useGlobalPipes(new ValidationPipe())
+  app.useGlobalFilters(new ExceptionsFilter(SERVICE_NAME))
+
+  if (module.hot) {
+    module.hot.accept()
+    module.hot.dispose((): Promise<void> => app.close())
+  }
+
+  await app.listen(process.env.PORT || 3000)
+}
+bootstrap()

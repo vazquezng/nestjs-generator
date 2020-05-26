@@ -1,0 +1,6 @@
+require('dotenv').config()
+
+const { SPECS_URL: specs } = process.env
+
+export const SPECS_URL = specs
+export const SERVICE_NAME = '<%= serviceName %>'

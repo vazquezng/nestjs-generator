@@ -1,0 +1,18 @@
+import { Controller, UseGuards } from '@nestjs/common'
+import { ApiUseTags } from '@nestjs/swagger'
+import { AuthGuard } from '@nestjs/passport'
+import { Logger } from '@bds/nestjs-common'
+
+import { <%= serviceClass %> } from '<%= servicePath %>'
+import { SERVICE_NAME } from '../../config'
+
+@ApiUseTags('<%= projectTitle %>')
+@UseGuards(AuthGuard('jwt'))
+@Controller('<%= apiBase %>')
+export class <%= controllerClass %> {
+  logger: Logger
+
+  constructor(private readonly <%= serviceInstance %>: <%= serviceClass %>) {
+    this.logger = new Logger(SERVICE_NAME, '<%= loggerContext %>')
+  }
+}
